@@ -1,5 +1,6 @@
 package com.example.filmer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private var search_field: EditText? = null
     private var imageView: ImageView? = null
     private var film_name: TextView? = null
+    private var searchButton: Button? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,14 +26,13 @@ class MainActivity : AppCompatActivity() {
 
         search_field = findViewById(R.id.searchField)
         search_btn = findViewById(R.id.button)
+        searchButton = findViewById(R.id.search)
         imageView = findViewById(R.id.imageView)
         film_name = findViewById(R.id.textView)
 
-//        val executor = Executors.newSingleThreadExecutor()
-//        val handler = Handler(Looper.getMainLooper())
-//        var image: Bitmap? = null
-
         search_btn?.setOnClickListener {
+            println(BuildConfig.API_KEY)
+
             if(search_field?.text?.toString()?.trim()?.equals("")!!)
                 Toast.makeText(this, "Search fieald is empty!", Toast.LENGTH_LONG).show()
             else{
@@ -57,7 +58,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        searchButton?.setOnClickListener {
+            intent = Intent(this, SearchScreen::class.java)
+            startActivity(intent)
+        }
     }
+
+    override fun onBackPressed() {
+
+    }
+
     fun setImage (url: String){
         Picasso.get().load(url).into(imageView)
     }
