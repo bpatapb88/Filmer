@@ -31,15 +31,12 @@ class MainActivity : AppCompatActivity() {
         film_name = findViewById(R.id.textView)
 
         search_btn?.setOnClickListener {
-            println(BuildConfig.API_KEY)
-
             if(search_field?.text?.toString()?.trim()?.equals("")!!)
                 Toast.makeText(this, "Search fieald is empty!", Toast.LENGTH_LONG).show()
             else{
                 var request: String = search_field?.text.toString()
-                var key: String = "125a923057a246d561b25dac6396d17b"
                 var url: String = "https://api.themoviedb.org/3/search/movie?" +
-                        "api_key=$key&" +
+                        "api_key=${BuildConfig.API_KEY}&" +
                         "language=en&" +
                         "query=$request&" +
                         "page=1&" +
