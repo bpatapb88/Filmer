@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Filmer"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".FilmScreen"
+            android:exported="false" />
+        <activity
             android:name=".SearchScreen"
             android:exported="false" />
         <activity
@@ -32,7 +35,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
