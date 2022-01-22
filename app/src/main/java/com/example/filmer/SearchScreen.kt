@@ -10,12 +10,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URL
 
-// genres availible - Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Music, Mystery, Romance, Science Fiction, Thriller, TV Movie, War, and Western.
-
 var mapGenres: MutableMap<Int, String>? = null
-private var mapLanguages: MutableMap<String, String>? = null
-
-private var rateSlider: RangeSlider? = null
+var mapLanguages: MutableMap<String, String>? = null
 
 class SearchScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +25,9 @@ class SearchScreen : AppCompatActivity() {
         val yearFrom: TextView = findViewById(R.id.fromYear)
         val yearTo: TextView = findViewById(R.id.toYear)
 
-        var urlGenres: String = "https://api.themoviedb.org/3/genre/movie/list?api_key=${BuildConfig.API_KEY}&language=en-US"
-        var urlLanguage: String = "https://api.themoviedb.org/3/configuration/languages?api_key=${BuildConfig.API_KEY}"
-        val contextCurrent = this
+        val urlGenres: String = "https://api.themoviedb.org/3/genre/movie/list?api_key=${BuildConfig.API_KEY}&language=en-US"
+        val urlLanguage: String = "https://api.themoviedb.org/3/configuration/languages?api_key=${BuildConfig.API_KEY}"
+
         doAsync {
                 var apiResponse = URL(urlGenres).readText()
                 val allGenres = JSONObject(apiResponse).getJSONArray("genres")
@@ -40,7 +36,6 @@ class SearchScreen : AppCompatActivity() {
                     val idGenres: Int = allGenres.getJSONObject(n).getInt("id")
                     val nameGenres: String = allGenres.getJSONObject(n).getString("name")
                     mapGenres!![idGenres] = nameGenres
-                    println("id $idGenres name $nameGenres")
                 }
 
                 apiResponse = URL(urlLanguage).readText()
@@ -95,7 +90,6 @@ class SearchScreen : AppCompatActivity() {
                         intent.putExtra("totalResults", totalResults)
                         intent.putExtra("totalPages", totalPages)
                         startActivity(intent)
-                        println(urlResult)
                     }else{
                         Toast.makeText(it, "We didn't find any movie", Toast.LENGTH_LONG).show()
                     }
